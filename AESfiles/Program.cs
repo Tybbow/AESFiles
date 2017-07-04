@@ -69,7 +69,36 @@ namespace AESfiles
 
         private static void MultiFiles(string directory, string method, AESperso myAes)
         {
-            
+            Display dis = new Display();
+            var files = Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories);
+            foreach (var curentfile in files)
+            {
+                byte[] fs = File.ReadAllBytes(curentfile);
+				if (method == "enc")
+				{
+					try
+					{
+						File.WriteAllBytes(curentfile, myAes.EncryptAES(fs));
+						dis.DisplayColor("Green", string.Format("Encrypt File : {0}", curentfile));
+					}
+					catch
+					{
+						dis.DisplayColor("Red", string.Format("Echec Encrypt File : {0}", curentfile));
+					}
+				}
+				else if (method == "dec")
+				{
+					try
+					{
+						File.WriteAllBytes(curentfile, myAes.DecryptAES(fs));
+						dis.DisplayColor("Green", string.Format("Decrypt File : {0}", curentfile));
+					}
+					catch
+					{
+						dis.DisplayColor("Red", string.Format("Echec Decrypt File : {0}", curentfile));
+					}
+				}
+            }
         }
     }
 }
