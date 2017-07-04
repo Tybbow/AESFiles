@@ -8,17 +8,16 @@ namespace AESfiles
         public static int Main(string[] args)
         {
             Arguments MyArgs = new Arguments(args);
+            Display myDis = new Display();
             if (!MyArgs.CheckArguments())
             {
-                Console.WriteLine("Application Exit");
+                myDis.displayHelp();
                 return (0);
             }
             MyArgs.EnterPassword();
-            Console.WriteLine();
             if (string.IsNullOrEmpty(MyArgs.ReadPassword()))
             {
                 Console.WriteLine("Error Password, enter your password ! No Empty use");
-                Console.WriteLine("Application Exit");
                 return (0);
             }
             Start(MyArgs);
@@ -72,31 +71,31 @@ namespace AESfiles
         {
             Display dis = new Display();
             var files = Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories);
-            foreach (var curentfile in files)
+            foreach (var filepath in files)
             {
-                byte[] fs = File.ReadAllBytes(curentfile);
+                byte[] fs = File.ReadAllBytes(filepath);
 				if (method == "enc")
 				{
 					try
 					{
-						File.WriteAllBytes(curentfile, myAes.EncryptAES(fs));
-						dis.DisplayColor("Green", string.Format("Encrypt File : {0}", curentfile));
+						File.WriteAllBytes(filepath, myAes.EncryptAES(fs));
+						dis.DisplayColor("Green", string.Format("Encrypt File : {0}", filepath));
 					}
 					catch
 					{
-						dis.DisplayColor("Red", string.Format("Echec Encrypt File : {0}", curentfile));
+						dis.DisplayColor("Red", string.Format("Echec Encrypt File : {0}", filepath));
 					}
 				}
 				else if (method == "dec")
 				{
 					try
 					{
-						File.WriteAllBytes(curentfile, myAes.DecryptAES(fs));
-						dis.DisplayColor("Green", string.Format("Decrypt File : {0}", curentfile));
+						File.WriteAllBytes(filepath, myAes.DecryptAES(fs));
+						dis.DisplayColor("Green", string.Format("Decrypt File : {0}", filepath));
 					}
 					catch
 					{
-						dis.DisplayColor("Red", string.Format("Echec Decrypt File : {0}", curentfile));
+						dis.DisplayColor("Red", string.Format("Echec Decrypt File : {0}", filepath));
 					}
 				}
             }

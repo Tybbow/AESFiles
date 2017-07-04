@@ -22,7 +22,7 @@ namespace AESfiles
 
 			while (i < args.Length - 1)
 			{
-                if (args[i] == "-f" || args[i] == "--file")
+                if (args[i] == "-f" || args[i] == "--files")
                     this.Path = args[i + 1];
 				if (args[i] == "-m" || args[i] == "--method")
 					this.Method = args[i + 1];
