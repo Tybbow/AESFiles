@@ -14,6 +14,7 @@ namespace AESfiles
                 return (0);
             }
             MyArgs.EnterPassword();
+            Console.WriteLine();
             if (string.IsNullOrEmpty(MyArgs.ReadPassword()))
             {
                 Console.WriteLine("Error Password, enter your password ! No Empty use");
