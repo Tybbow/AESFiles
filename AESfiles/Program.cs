@@ -28,7 +28,7 @@ namespace AESfiles
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
             string elapsedTime = String.Format("{0:00} minute(s), {1:00} secondes", ts.Minutes, ts.Seconds);
-            myDis.DisplayColor("Yellow", string.Format("Time Duration : {0}", elapsedTime));
+            myDis.DisplayColor(ConsoleColor.Yellow, string.Format("Time Duration : {0}", elapsedTime));
             return (1);
         }
 
@@ -64,16 +64,14 @@ namespace AESfiles
             catch (Exception ex)
             {
                 buffer = null;
-                dis.DisplayColor("Red", string.Format("{0} - {1}", filepath, ex.Message));
+                dis.DisplayColor(ConsoleColor.Red, string.Format("{0} - {1}", filepath, ex.Message));
             }
             return buffer;
 		}
 
         private static void FileOnce(string filepath, string method, AESperso myAes)
         {
-
             Display dis = new Display();
-
             byte[] fs = ReturnByte(filepath);
             if (fs != null)
             {
@@ -82,11 +80,11 @@ namespace AESfiles
 					try
 					{
 						File.WriteAllBytes(filepath, myAes.EncryptAES(fs));
-						dis.DisplayColor("Green", string.Format("Encrypt File : {0}", filepath));
+						dis.DisplayColor(ConsoleColor.Green, string.Format("Encrypt File : {0}", filepath));
 					}
                     catch
 					{
-						dis.DisplayColor("Red", string.Format("Echec Encrypt File : {0}", filepath));
+						dis.DisplayColor(ConsoleColor.Red, string.Format("Echec Encrypt File : {0}", filepath));
 					}
 				}
 				else if (method == "dec")
@@ -94,11 +92,11 @@ namespace AESfiles
 					try
 					{
 						File.WriteAllBytes(filepath, myAes.DecryptAES(fs));
-						dis.DisplayColor("Green", string.Format("Decrypt File : {0}", filepath));
+						dis.DisplayColor(ConsoleColor.Green, string.Format("Decrypt File : {0}", filepath));
 					}
 					catch
 					{
-						dis.DisplayColor("Red", string.Format("Echec Decrypt File : {0}", filepath));
+						dis.DisplayColor(ConsoleColor.Red, string.Format("Echec Decrypt File : {0}", filepath));
 					}
 				}   
             }

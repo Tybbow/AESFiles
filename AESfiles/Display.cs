@@ -7,45 +7,15 @@ namespace AESfiles
         {
         }
 
-        public void DisplayColor(string color, string text)
+        public void DisplayColor(ConsoleColor color, string text)
         {
-            if (color == "Yellow")
-            {
-                DisplayYellow();
-                Console.Write(string.Format("{0}", text));
-            }
-            if (color == "Green")
-            {
-                DisplayGreen();
-                Console.Write(string.Format("{0}\r\n", text));
-            }
-            if (color == "Red")
-            {
-                DisplayRed();
-                Console.Write(string.Format("{0}\r\n", text));
-            }
+            Console.ForegroundColor = color;
+            Console.Write(" [+] ");
+            Console.ResetColor();
+            Console.Write("{0}", text);
+            if (color != ConsoleColor.Yellow)
+                Console.Write("\r\n");
         }
-
-        private void DisplayYellow()
-        {
-			Console.ForegroundColor = ConsoleColor.Yellow;
-			Console.Write("[+] ");
-			Console.ResetColor();
-        }
-
-		private void DisplayGreen()
-		{
-			Console.ForegroundColor = ConsoleColor.Green;
-			Console.Write("[+] ");
-			Console.ResetColor();
-		}
-
-		private void DisplayRed()
-		{
-			Console.ForegroundColor = ConsoleColor.Red;
-			Console.Write("[+] ");
-			Console.ResetColor();
-		}
 
         public void displayHelp()
         {

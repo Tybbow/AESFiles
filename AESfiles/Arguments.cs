@@ -33,7 +33,7 @@ namespace AESfiles
         public void EnterPassword()
         {
             Display MyDisplay = new Display();
-            MyDisplay.DisplayColor("Yellow", "Enter your password : ");
+            MyDisplay.DisplayColor(ConsoleColor.Yellow, "Enter your password : ");
             string password = "";
 			ConsoleKeyInfo info = Console.ReadKey(true);
 			while (info.Key != ConsoleKey.Enter)
