@@ -35,12 +35,22 @@ namespace AESfiles
                 MultiFiles(MyArgs.ReadPath(), MyArgs.ReadMethod(), myAes);
         }
 
+		private static void MultiFiles(string directory, string method, AESperso myAes)
+		{
+			Display dis = new Display();
+			var files = Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories);
+			foreach (var filepath in files)
+			{
+                FileOnce(directory, method, myAes);
+			}
+		}
+
         private static void FileOnce(string filepath, string method, AESperso myAes)
         {
 
             Display dis = new Display();
 
-            byte[] fs = File.ReadAllBytes(filepath);
+            byte[] fs = ReturnByte(filepath);
 			if (method == "enc")
             {
                 try
@@ -67,38 +77,18 @@ namespace AESfiles
 			}
         }
 
-        private static void MultiFiles(string directory, string method, AESperso myAes)
+        private static byte[] ReturnByte(string filepath)
         {
-            Display dis = new Display();
-            var files = Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories);
-            foreach (var filepath in files)
+            byte[] fs = null;
+            try
             {
-                byte[] fs = File.ReadAllBytes(filepath);
-				if (method == "enc")
-				{
-					try
-					{
-						File.WriteAllBytes(filepath, myAes.EncryptAES(fs));
-						dis.DisplayColor("Green", string.Format("Encrypt File : {0}", filepath));
-					}
-					catch
-					{
-						dis.DisplayColor("Red", string.Format("Echec Encrypt File : {0}", filepath));
-					}
-				}
-				else if (method == "dec")
-				{
-					try
-					{
-						File.WriteAllBytes(filepath, myAes.DecryptAES(fs));
-						dis.DisplayColor("Green", string.Format("Decrypt File : {0}", filepath));
-					}
-					catch
-					{
-						dis.DisplayColor("Red", string.Format("Echec Decrypt File : {0}", filepath));
-					}
-				}
+                fs = File.ReadAllBytes(filepath);
             }
+            catch 
+            {
+                Console.Write("");
+            }
+            return (fs);
         }
     }
 }

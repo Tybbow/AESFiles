@@ -1,11 +1,12 @@
 ﻿<Properties StartupConfiguration="{659F9F31-F560-43FE-93BE-8A1D7C86A1F4}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="AESfiles/Arguments.cs">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="AESfiles/Program.cs" Line="9" Column="47" />
+      <File FileName="AESfiles/Program.cs" Line="48" Column="69" />
       <File FileName="AESfiles/Arguments.config" Line="1" Column="1" />
-      <File FileName="AESfiles/Arguments.cs" Line="9" Column="23" />
-      <File FileName="AESfiles/AES.cs" Line="24" Column="13" />
-      <File FileName="AESfiles/Display.cs" Line="1" Column="1" />
+      <File FileName="AESfiles/Arguments.cs" Line="26" Column="45" />
+      <File FileName="AESfiles/AES.cs" Line="43" Column="38" />
+      <File FileName="AESfiles/Display.cs" Line="21" Column="14" />
+      <File FileName="AESfiles/Properties/AssemblyInfo.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
