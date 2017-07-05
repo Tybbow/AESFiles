@@ -18,7 +18,7 @@ namespace AESfiles
 			AesAlg.KeySize = 256;
 			AesAlg.BlockSize = 128;
 			AesAlg.Mode = CipherMode.CBC;
-			AesAlg.Padding = PaddingMode.PKCS7;
+			AesAlg.Padding = PaddingMode.Zeros;
         }  
 
         public AESperso(string password)
@@ -45,13 +45,15 @@ namespace AESfiles
             byte[] encrypt;
 
             ICryptoTransform encryptor = AesAlg.CreateEncryptor(AesAlg.Key, AesAlg.IV);
-            MemoryStream msEncrypt = new MemoryStream();
-            using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-            {
-               csEncrypt.Write(content, 0, content.Length);
-               csEncrypt.FlushFinalBlock();
-               encrypt = msEncrypt.ToArray();
-            }
+			using (MemoryStream msEncrypt = new MemoryStream())
+			{
+				using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+				{
+					csEncrypt.Write(content, 0, content.Length);
+					csEncrypt.FlushFinalBlock();
+					encrypt = msEncrypt.ToArray();
+				}
+			}
             return (encrypt);
 		}
 
@@ -59,14 +61,16 @@ namespace AESfiles
         {
             byte[] decrypt;
 
-            ICryptoTransform decryptor = AesAlg.CreateDecryptor(AesAlg.Key, AesAlg.IV);
-            MemoryStream msDecrypt = new MemoryStream();
-            using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Write))
-            {
-                csDecrypt.Write(content, 0, content.Length);
-                csDecrypt.FlushFinalBlock();
-                decrypt = msDecrypt.ToArray();
-            }
+			ICryptoTransform decryptor = AesAlg.CreateDecryptor(AesAlg.Key, AesAlg.IV);
+			using (MemoryStream msDecrypt = new MemoryStream())
+			{
+				using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Write))
+				{
+					csDecrypt.Write(content, 0, content.Length);
+					csDecrypt.FlushFinalBlock();
+					decrypt = msDecrypt.ToArray();
+				}
+			}
             return (decrypt);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Diagnostics;
 
 namespace AESfiles
 {
@@ -9,6 +10,8 @@ namespace AESfiles
         {
             Arguments MyArgs = new Arguments(args);
             Display myDis = new Display();
+            Stopwatch stopWatch = new Stopwatch();
+
             if (!MyArgs.CheckArguments())
             {
                 myDis.displayHelp();
@@ -20,7 +23,12 @@ namespace AESfiles
                 Console.WriteLine("Error Password, enter your password ! No Empty use");
                 return (0);
             }
+            stopWatch.Start();
             Start(MyArgs);
+            stopWatch.Stop();
+            TimeSpan ts = stopWatch.Elapsed;
+            string elapsedTime = String.Format("{0:00} minute(s), {1:00} secondes", ts.Minutes, ts.Seconds);
+            myDis.DisplayColor("Yellow", string.Format("Time Duration : {0}", elapsedTime));
             return (1);
         }
 
@@ -41,8 +49,24 @@ namespace AESfiles
 			var files = Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories);
 			foreach (var filepath in files)
 			{
-                FileOnce(directory, method, myAes);
+                FileOnce(filepath, method, myAes);
 			}
+		}
+
+		private static byte[] ReturnByte(string filepath)
+		{
+			Display dis = new Display();
+            byte[] buffer;
+            try
+            {
+                buffer = File.ReadAllBytes(filepath);
+            }
+            catch (Exception ex)
+            {
+                buffer = null;
+                dis.DisplayColor("Red", string.Format("{0} - {1}", filepath, ex.Message));
+            }
+            return buffer;
 		}
 
         private static void FileOnce(string filepath, string method, AESperso myAes)
@@ -51,44 +75,33 @@ namespace AESfiles
             Display dis = new Display();
 
             byte[] fs = ReturnByte(filepath);
-			if (method == "enc")
+            if (fs != null)
             {
-                try
-                {
-                    File.WriteAllBytes(filepath, myAes.EncryptAES(fs));
-					dis.DisplayColor("Green", string.Format("Encrypt File : {0}", filepath));
-                }
-                catch
-                {
-                    dis.DisplayColor("Red", string.Format("Echec Encrypt File : {0}", filepath));
-                }
-            }
-			else if (method == "dec")
-			{
-				try
+				if (method == "enc")
 				{
-					File.WriteAllBytes(filepath, myAes.DecryptAES(fs));
-                    dis.DisplayColor("Green", string.Format("Decrypt File : {0}", filepath));
+					try
+					{
+						File.WriteAllBytes(filepath, myAes.EncryptAES(fs));
+						dis.DisplayColor("Green", string.Format("Encrypt File : {0}", filepath));
+					}
+                    catch
+					{
+						dis.DisplayColor("Red", string.Format("Echec Encrypt File : {0}", filepath));
+					}
 				}
-				catch
+				else if (method == "dec")
 				{
-					dis.DisplayColor("Red", string.Format("Echec Decrypt File : {0}", filepath));
-				}
-			}
-        }
-
-        private static byte[] ReturnByte(string filepath)
-        {
-            byte[] fs = null;
-            try
-            {
-                fs = File.ReadAllBytes(filepath);
+					try
+					{
+						File.WriteAllBytes(filepath, myAes.DecryptAES(fs));
+						dis.DisplayColor("Green", string.Format("Decrypt File : {0}", filepath));
+					}
+					catch
+					{
+						dis.DisplayColor("Red", string.Format("Echec Decrypt File : {0}", filepath));
+					}
+				}   
             }
-            catch 
-            {
-                Console.Write("");
-            }
-            return (fs);
         }
     }
 }

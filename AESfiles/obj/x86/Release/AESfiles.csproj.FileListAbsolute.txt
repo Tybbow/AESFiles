@@ -1,0 +1,3 @@
+/Users/tybbow/Documents/Projects/Csharp/AESfiles/AESfiles/bin/Release/AESfiles.exe
+/Users/tybbow/Documents/Projects/Csharp/AESfiles/AESfiles/obj/x86/Release/AESfiles.csproj.CoreCompileInputs.cache
+/Users/tybbow/Documents/Projects/Csharp/AESfiles/AESfiles/obj/x86/Release/AESfiles.exe
