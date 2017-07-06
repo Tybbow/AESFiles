@@ -12,11 +12,12 @@ namespace AESfiles
             Display myDis = new Display();
             Stopwatch stopWatch = new Stopwatch();
 
-            if (!MyArgs.CheckArguments() || MyArgs.Help)
+            if (args.Length == 0 || !MyArgs.CheckArguments() || MyArgs.Help)
             {
                 myDis.displayHelp();
                 return (0);
             }
+			myDis.displayBegin();
             MyArgs.EnterPassword();
             if (string.IsNullOrEmpty(MyArgs.ReadPassword()))
             {

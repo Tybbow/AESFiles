@@ -12,6 +12,7 @@ namespace AESfiles
         public int Type { get; private set; }
         public bool Help { get; private set; }
         public bool Recursive { get; private set; }
+        Display MyDisplay = new Display();
 
         public Arguments()
         {
@@ -40,7 +41,6 @@ namespace AESfiles
 
         public void EnterPassword()
         {
-            Display MyDisplay = new Display();
             MyDisplay.DisplayColor(ConsoleColor.Yellow, "Enter your password : ");
             string password = "";
 			ConsoleKeyInfo info = Console.ReadKey(true);
@@ -83,7 +83,7 @@ namespace AESfiles
         {
             if (!string.IsNullOrEmpty(Password))
                 return (true);
-            Console.WriteLine("Error Password");
+            MyDisplay.DisplayColor(ConsoleColor.DarkRed, "Error password");
             return (false);
         }
 
@@ -99,7 +99,7 @@ namespace AESfiles
                 Type = 2;
                 return (true);
             }
-            Console.WriteLine("Error Path, File or Directory doesn't exist.");
+            MyDisplay.DisplayColor(ConsoleColor.DarkRed, "Error Path, File or Directory doesn't exists");
             return (false);
         }
 
@@ -107,7 +107,7 @@ namespace AESfiles
         {
 			if (this.Method == "dec" || this.Method == "enc")
 			    return (true);
-			Console.WriteLine("Error Method : dec or enc.");
+            MyDisplay.DisplayColor(ConsoleColor.DarkRed, "Error Method : enc (Encrypt) or dec (Decrypt).");
 			return (false);
         }
 

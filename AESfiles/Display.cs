@@ -29,5 +29,19 @@ namespace AESfiles
 			Console.WriteLine("AESfiles.exe -m dec mydirectory");
 			Console.WriteLine("AESfiles.exe -m enc -r mydirectory");
         }
+
+        public void displayBegin()
+        {
+			Console.WriteLine("         ___       _______     _______. _______  __   __       _______     _______.");
+			Console.WriteLine("        /   \\     |   ____|   /       ||   ____||  | |  |     |   ____|   /       |");
+			Console.WriteLine("       /  ^  \\    |  |__     |   (----`|  |__   |  | |  |     |  |__     |   (----`");
+			Console.WriteLine("      /  /_\\  \\   |   __|     \\   \\    |   __|  |  | |  |     |   __|     \\   \\    ");
+			Console.WriteLine("     /  _____  \\  |  |____.----)   |   |  |     |  | |  `----.|  |____.----)   |   ");
+			Console.WriteLine("    /__/     \\__\\ |_______|_______/    |__|     |__| |_______||_______|_______/    ");
+            Console.WriteLine("    By Tybbow, V1.0.1");
+			Console.WriteLine();
+			Console.WriteLine();
+
+		}
     }
 }
