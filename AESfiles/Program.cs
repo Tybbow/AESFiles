@@ -12,7 +12,7 @@ namespace AESfiles
             Display myDis = new Display();
             Stopwatch stopWatch = new Stopwatch();
 
-            if (!MyArgs.CheckArguments())
+            if (!MyArgs.CheckArguments() || MyArgs.Help)
             {
                 myDis.displayHelp();
                 return (0);
@@ -28,25 +28,25 @@ namespace AESfiles
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
             string elapsedTime = String.Format("{0:00} minute(s), {1:00} secondes", ts.Minutes, ts.Seconds);
+            Console.Write("\r\n");
             myDis.DisplayColor(ConsoleColor.Yellow, string.Format("Time Duration : {0}", elapsedTime));
             return (1);
         }
 
         private static void Start(Arguments MyArgs)
         {
-
             AESperso myAes = new AESperso(MyArgs.ReadPassword());
-
             if (MyArgs.Type == 1)
                 FileOnce(MyArgs.ReadPath(), MyArgs.ReadMethod(), myAes);
             if (MyArgs.Type == 2)
-                MultiFiles(MyArgs.ReadPath(), MyArgs.ReadMethod(), myAes);
+                MultiFiles(MyArgs.ReadPath(), MyArgs.ReadMethod(), myAes, MyArgs.Recursive);
         }
 
-		private static void MultiFiles(string directory, string method, AESperso myAes)
+		private static void MultiFiles(string directory, string method, AESperso myAes, bool Recursive)
 		{
 			Display dis = new Display();
-			var files = Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories);
+            var files = (Recursive) ? Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories) 
+                                               : Directory.EnumerateFiles(directory, "*.*", SearchOption.TopDirectoryOnly);
 			foreach (var filepath in files)
 			{
                 FileOnce(filepath, method, myAes);

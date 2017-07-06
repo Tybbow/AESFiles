@@ -10,22 +10,30 @@ namespace AESfiles
         public string Password { get; set; }
         public string Method { get; set; }
         public int Type { get; private set; }
+        public bool Help { get; private set; }
+        public bool Recursive { get; private set; }
 
         public Arguments()
         {
             Password = string.Empty;
+            Help = false;
+            Recursive = false;
         }
 
         public Arguments(string[] args)
         {
 			int i = 0;
 
-			while (i < args.Length - 1)
+			while (i < args.Length)
 			{
-                if (args[i] == "-f" || args[i] == "--files")
-                    this.Path = args[i + 1];
-				if (args[i] == "-m" || args[i] == "--method")
-					this.Method = args[i + 1];
+                if (args[i] == "-m" || args[i] == "--method")
+                    this.Method = (i < args.Length - 1) ? args[i + 1] : null;
+                else if (args[i] == "-h" || args[i] == "--help")
+                    this.Help = true;
+                else if (args[i] == "-r" || args[i] == "--recursive")
+                    this.Recursive = true;
+                else
+                    this.Path = args[i];
 				i++;
 			}
         }
@@ -62,6 +70,8 @@ namespace AESfiles
 
         public bool CheckArguments()
         {
+            if (this.Help)
+                return (false);
             if (!this.CheckMethod())
                 return (false);
             if (!this.CheckPath())
