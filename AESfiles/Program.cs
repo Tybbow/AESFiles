@@ -7,11 +7,12 @@ namespace AESfiles
     class MainClass
     {
 
-        private static Display MyDisplay = new Display();
+        static Display MyDisplay = new Display();
+        static Arguments MyArgs { get; set; }
 
         public static int Main(string[] args)
         {
-            Arguments MyArgs = new Arguments(args);
+            MyArgs =  new Arguments(args);
             Stopwatch stopWatch = new Stopwatch();
 
             if (args.Length == 0 || !MyArgs.CheckArguments() || MyArgs.Help)
@@ -27,31 +28,31 @@ namespace AESfiles
                 return (0);
             }
             stopWatch.Start();
-            Start(MyArgs);
+            Start();
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
-            string elapsedTime = String.Format("{2:00} hour(s), {0:00} minute(s), {1:00} secondes",ts.Hours, ts.Minutes, ts.Seconds);
+            string elapsedTime = String.Format("{0:00} hour(s), {1:00} minute(s), {2:00} secondes",ts.Hours, ts.Minutes, ts.Seconds);
             Console.Write("\r\n");
             MyDisplay.DisplayColor(ConsoleColor.Yellow, string.Format("Time Duration : {0}", elapsedTime));
             return (1);
         }
 
-        private static void Start(Arguments MyArgs)
+        private static void Start()
         {
             AESperso myAes = new AESperso(MyArgs.ReadPassword());
             if (MyArgs.Type == 1)
-                FileOnce(MyArgs.ReadPath(), MyArgs.ReadMethod(), myAes);
+                FileOnce(MyArgs.ReadPath(), myAes);
             if (MyArgs.Type == 2)
-                MultiFiles(MyArgs.ReadPath(), MyArgs.ReadMethod(), myAes, MyArgs.Recursive);
+                MultiFiles(myAes, MyArgs.Recursive);
         }
 
-		private static void MultiFiles(string directory, string method, AESperso myAes, bool Recursive)
+		private static void MultiFiles(AESperso myAes, bool Recursive)
 		{
-            var files = (Recursive) ? Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories) 
-                                               : Directory.EnumerateFiles(directory, "*.*", SearchOption.TopDirectoryOnly);
+            var files = (Recursive) ? Directory.EnumerateFiles(MyArgs.ReadPath(), "*.*", SearchOption.AllDirectories) 
+                                               : Directory.EnumerateFiles(MyArgs.ReadPath(), "*.*", SearchOption.TopDirectoryOnly);
 			foreach (var filepath in files)
 			{
-                FileOnce(filepath, method, myAes);
+                FileOnce(filepath, myAes);
 			}
 		}
 
@@ -70,33 +71,38 @@ namespace AESfiles
             return buffer;
 		}
 
-        private static void FileOnce(string filepath, string method, AESperso myAes)
+        private static void FileOnce(string filepath, AESperso myAes)
         {
             byte[] fs = ReturnByte(filepath);
             if (fs != null)
             {
-				if (method == "enc")
+				if (MyArgs.ReadMethod() == "enc")
 				{
 					try
 					{
-						File.WriteAllBytes(filepath, myAes.EncryptAES(fs));
-						MyDisplay.DisplayColor(ConsoleColor.Green, string.Format("Encrypt File : {0}", filepath));
+                        File.WriteAllBytes(string.Format("{0}.enc", filepath), myAes.EncryptAES(fs));
+                        File.Delete(filepath);
+                        MyDisplay.DisplayColor(ConsoleColor.Green, string.Format("Encrypt File : {0}", string.Format("{0}.enc", filepath)));
 					}
-                    catch
+                    catch (Exception ex)
 					{
-						MyDisplay.DisplayColor(ConsoleColor.Red, string.Format("Echec Encrypt File : {0}", filepath));
+                        MyDisplay.DisplayColor(ConsoleColor.Red, string.Format("Echec Encrypt File : {0} - {1}", filepath, ex.Message));
 					}
 				}
-				else if (method == "dec")
+				else if (MyArgs.ReadMethod() == "dec")
 				{
 					try
 					{
-						File.WriteAllBytes(filepath, myAes.DecryptAES(fs));
-						MyDisplay.DisplayColor(ConsoleColor.Green, string.Format("Decrypt File : {0}", filepath));
+                        if (filepath.Substring(filepath.LastIndexOf('.')).Equals(".enc"))
+                        {
+                            File.WriteAllBytes(filepath.Substring(0, filepath.LastIndexOf('.')), myAes.DecryptAES(fs));
+                            File.Delete(filepath);
+                            MyDisplay.DisplayColor(ConsoleColor.Green, string.Format("Decrypt File : {0}", filepath));   
+                        }
 					}
-					catch
+					catch (Exception ex)
 					{
-						MyDisplay.DisplayColor(ConsoleColor.Red, string.Format("Echec Decrypt File : {0}", filepath));
+                        MyDisplay.DisplayColor(ConsoleColor.Red, string.Format("Echec Decrypt File : {0} - {1}", filepath, ex.Message));
 					}
 				}   
             }

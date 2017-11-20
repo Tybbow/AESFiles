@@ -19,6 +19,7 @@ namespace AESfiles
             Password = string.Empty;
             Help = false;
             Recursive = false;
+            Type = 0;
         }
 
         public Arguments(string[] args)
@@ -90,15 +91,11 @@ namespace AESfiles
         private bool CheckPath()
         {
             if (File.Exists(this.Path))
-            {
                 Type = 1;
-                return (true);
-            }
             if (Directory.Exists(this.Path))
-            {
                 Type = 2;
+            if (Type != 0)
                 return (true);
-            }
             MyDisplay.DisplayColor(ConsoleColor.DarkRed, "Error Path, File or Directory doesn't exists");
             return (false);
         }

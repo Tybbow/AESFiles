@@ -17,7 +17,7 @@ namespace AESfiles
 
         public void displayHelp()
         {
-            Console.WriteLine("Help AESFiles Version: 1.0.0.0 - By Tybbow Copyright");
+            Console.WriteLine("Help AESFiles Version: 1.1.0 - By Tybbow Copyright");
             Console.WriteLine("");
             Console.WriteLine("Usage : AESfiles [Options....] File or Directory");
 			Console.WriteLine("\t-m, --method : \tenc for encrypt or dec for decrypt.");
@@ -38,7 +38,7 @@ namespace AESfiles
 			Console.WriteLine("      /  /_\\  \\   |   __|     \\   \\    |   __|  |  | |  |     |   __|     \\   \\    ");
 			Console.WriteLine("     /  _____  \\  |  |____.----)   |   |  |     |  | |  `----.|  |____.----)   |   ");
 			Console.WriteLine("    /__/     \\__\\ |_______|_______/    |__|     |__| |_______||_______|_______/    ");
-            Console.WriteLine("    By Tybbow, V1.0.1");
+            Console.WriteLine("    By Tybbow, V1.1.0");
 			Console.WriteLine();
 			Console.WriteLine();
 
