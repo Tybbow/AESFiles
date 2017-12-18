@@ -1,19 +1,20 @@
 ﻿<Properties StartupConfiguration="{659F9F31-F560-43FE-93BE-8A1D7C86A1F4}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="AESfiles/Arguments.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AESfiles/Program.cs">
     <Files>
-      <File FileName="AESfiles/Program.cs" Line="41" Column="10" />
+      <File FileName="AESfiles/Program.cs" Line="29" Column="10" />
       <File FileName="AESfiles/Arguments.config" Line="5" Column="14" />
-      <File FileName="AESfiles/Arguments.cs" Line="38" Column="41" />
-      <File FileName="AESfiles/AES.cs" Line="37" Column="38" />
-      <File FileName="AESfiles/Display.cs" Line="27" Column="44" />
+      <File FileName="AESfiles/Arguments.cs" Line="78" Column="27" />
+      <File FileName="AESfiles/AES.cs" Line="217" Column="1" />
+      <File FileName="AESfiles/Display.cs" Line="14" Column="34" />
       <File FileName="AESfiles/Properties/AssemblyInfo.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <AuthorInfo Name="Tybbow" Email="tybbow@gmail.com" Copyright="2017" Company="" Trademark="" />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.AESfiles PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>

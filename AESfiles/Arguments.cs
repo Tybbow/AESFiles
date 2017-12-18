@@ -7,11 +7,13 @@ namespace AESfiles
     {
 
         public string Path { get; set; }
+        public string String { get; set; }
         public string Password { get; set; }
         public string Method { get; set; }
         public int Type { get; private set; }
         public bool Help { get; private set; }
         public bool Recursive { get; private set; }
+
         Display MyDisplay = new Display();
 
         public Arguments()
@@ -30,12 +32,14 @@ namespace AESfiles
 			{
                 if (args[i] == "-m" || args[i] == "--method")
                     this.Method = (i < args.Length - 1) ? args[i + 1] : null;
-                else if (args[i] == "-h" || args[i] == "--help")
+                if (args[i] == "-f" || args[i] == "--files")
+                    this.Path = args[i + 1];
+                if (args[i] == "-s" || args[i] == "--string")
+                    this.String = args[i + 1];
+                if (args[i] == "-h" || args[i] == "--help")
                     this.Help = true;
-                else if (args[i] == "-r" || args[i] == "--recursive")
+                if (args[i] == "-r" || args[i] == "--recursive")
                     this.Recursive = true;
-                else
-                    this.Path = args[i];
 				i++;
 			}
         }
@@ -75,8 +79,6 @@ namespace AESfiles
                 return (false);
             if (!this.CheckMethod())
                 return (false);
-            if (!this.CheckPath())
-                return (false);
             return (true);
         }
 
@@ -85,18 +87,6 @@ namespace AESfiles
             if (!string.IsNullOrEmpty(Password))
                 return (true);
             MyDisplay.DisplayColor(ConsoleColor.DarkRed, "Error password");
-            return (false);
-        }
-
-        private bool CheckPath()
-        {
-            if (File.Exists(this.Path))
-                Type = 1;
-            if (Directory.Exists(this.Path))
-                Type = 2;
-            if (Type != 0)
-                return (true);
-            MyDisplay.DisplayColor(ConsoleColor.DarkRed, "Error Path, File or Directory doesn't exists");
             return (false);
         }
 
