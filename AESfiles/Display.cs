@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+
 namespace AESfiles
 {
     public class Display
@@ -10,19 +12,21 @@ namespace AESfiles
         public void DisplayColor(ConsoleColor color, string text)
         {
             Console.ForegroundColor = color;
-            Console.Write(" [+] ");
+            Console.Write("[+] ");
             Console.ResetColor();
             Console.Write("{0} {1}", text, color != ConsoleColor.Yellow ? "\r\n" : "");
         }
 
         public void displayHelp()
         {
-            Console.WriteLine("Help AESFiles Version: 1.4.1 - By Tybbow Copyright");
+    
+
+            Console.WriteLine("Help AESFiles Version: 1.4.3 - By Tybbow Copyright");
             Console.WriteLine("");
             Console.WriteLine("Usage : AESfiles [Options....] File or Directory");
             Console.WriteLine("\t-m, --method : \tenc for encrypt or dec for decrypt.");
             Console.WriteLine("\t-s, --string : \ttarget string.");
-			Console.WriteLine("\t-f, --files : \ttartget files");
+			Console.WriteLine("\t-f, --files : \ttarget files");
 			Console.WriteLine("\t-r, --recursive : \tselect all directory or not. Target directory for use this options");
 			Console.WriteLine("\t-h, --help : \tDisplay this help.");
             Console.WriteLine("");
@@ -41,7 +45,7 @@ namespace AESfiles
 			Console.WriteLine("      /  /_\\  \\   |   __|     \\   \\    |   __|  |  | |  |     |   __|     \\   \\    ");
 			Console.WriteLine("     /  _____  \\  |  |____.----)   |   |  |     |  | |  `----.|  |____.----)   |   ");
 			Console.WriteLine("    /__/     \\__\\ |_______|_______/    |__|     |__| |_______||_______|_______/    ");
-            Console.WriteLine("    By Tybbow, V1.4.1");
+            Console.WriteLine("    By Tybbow, V1.4.3");
 			Console.WriteLine();
 			Console.WriteLine();
 

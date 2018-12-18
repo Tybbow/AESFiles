@@ -48,7 +48,7 @@ namespace AESfiles
                 else
                     myAes.DecryptPath(myArgs.Path);
             }
-
+            myAes.TimerStop();
         }
     }
 }

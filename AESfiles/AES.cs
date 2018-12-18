@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using System.Security.Cryptography;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System;
@@ -23,8 +22,8 @@ namespace AESfiles
             Password = string.Empty;
 			AesAlg.KeySize = 256;
 			AesAlg.BlockSize = 128;
-			AesAlg.Mode = CipherMode.CBC;
-			AesAlg.Padding = PaddingMode.Zeros;
+            AesAlg.Mode = CipherMode.CBC;
+			AesAlg.Padding = PaddingMode.PKCS7;
         }  
 
         public AESperso(string password)
@@ -75,15 +74,9 @@ namespace AESfiles
         private static byte[] ReturnByte(string filepath)
         {
             byte[] buffer;
-            try
-            {
-                buffer = File.ReadAllBytes(filepath);
-            }
-            catch (Exception)
-            {
-                buffer = null;
-            }
-            return buffer;
+
+            buffer = File.ReadAllBytes(filepath);
+            return (buffer);
         }
 
         private string[] ReturnFiles(string path)
@@ -109,19 +102,19 @@ namespace AESfiles
         {
 
             string[] arrayfiles = ReturnFiles(path);
+
             if (arrayfiles.Length == 0)
             {
                 myDisplay.DisplayColor(ConsoleColor.Red, string.Format("Files not found !! Exit\r"));
                 return;
             }
-
             foreach(string file in arrayfiles)
             {
-                byte[] fs = ReturnByte(file);
                 try
                 {
+                    byte[] fs = ReturnByte(file);
                     File.WriteAllBytes(string.Format("{0}.enc", file), this.EncryptAES(fs));
-                    File.Delete(path);
+                    File.Delete(file);
                     myDisplay.DisplayColor(ConsoleColor.Green, string.Format("Encrypt File : {0}", string.Format("{0}.enc", file)));
                 }
                 catch (Exception ex)
@@ -142,9 +135,9 @@ namespace AESfiles
             }
             foreach(string file in arrayfiles)
             {
-                byte[] fs = ReturnByte(file);
                 try
                 {
+                    byte[] fs = ReturnByte(file);
                     if (file.Substring(file.LastIndexOf('.')).Equals(".enc"))
                     {
                         File.WriteAllBytes(file.Replace(".enc", ""), this.DecryptAES(fs));
@@ -160,22 +153,17 @@ namespace AESfiles
 
         }
 
-
-        public string TimerStart()
+        public void TimerStart()
         {
             Watch.Start();
-            TimeSpan ts = Watch.Elapsed;
-            string elapsedTime = String.Format("{0:00} hour(s), {1:00} minute(s), {2:00} secondes", ts.Hours, ts.Minutes, ts.Seconds);
-            return (elapsedTime);
-
         }
 
-        public string TimerStop()
+        public void TimerStop()
         {
             Watch.Stop();
             TimeSpan ts = Watch.Elapsed;
             string elapsedTime = String.Format("{0:00} hour(s), {1:00} minute(s), {2:00} secondes", ts.Hours, ts.Minutes, ts.Seconds);
-            return (elapsedTime);
+            myDisplay.DisplayColor(ConsoleColor.Yellow, elapsedTime);
         }
 
 

@@ -10,7 +10,7 @@
     <AssemblyName>AESfiles</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <ApplicationIcon>Ressources\main.ico</ApplicationIcon>
-    <ReleaseVersion>1.4.1</ReleaseVersion>
+    <ReleaseVersion>1.4.3</ReleaseVersion>
     <PackageId>AESFiles</PackageId>
     <PackageVersion>1.4.1</PackageVersion>
     <Authors>Tybbow</Authors>
